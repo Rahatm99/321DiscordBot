@@ -28,9 +28,6 @@ client.on("messageCreate", message => {
 
 client.login(process.env.TOKEN)
 
-
-//import {pclient, query} from "./pexelsModule.mjs";
-
 const pclient = createClient('bxJPwwP46cSPiYtwR72PSPfwdKIxH56nWXKWGpspTcQ1IEbVStVYBQKd');
 const query = 'Nature';
 
@@ -40,8 +37,24 @@ client.on("messageCreate", message => {
     }
 })
 
-client.on("messageCreate", message => {
-    if (message.content === 'generate') {
-        pclient.photos.search({ query, per_page: 1 }).then(photos => {});
+client.on("messageCreate", async (message) => {
+    if (message.content === "generate") {
+      try {
+        const photos = await pclient.photos.search({ query, per_page: 1 });
+        if (photos.total_results > 0) {
+            const photoUrl = photos.photos[0].src.medium;
+            message.reply({ files: [photoUrl] });
+        } 
+
+        else {
+            message.reply("No photos found for your query.");
+        }
+        
+        }
+
+      catch (error) {
+        console.error(error);
+        message.reply("Failed to fetch a photo.");
+      }
     }
-})
+  });
