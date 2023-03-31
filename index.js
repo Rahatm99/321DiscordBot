@@ -10,20 +10,21 @@ const client = new Client({
     ],
 })
 
+//Confirmation the bot is turned on
 client.on('ready', () => {
     console.log('the bot is ready')
 })
 
 client.on("messageCreate", message => {
+    //Ping Pong bot input test
     if (message.content === 'ping') {
         message.reply("pong")
     }
-})
-
-client.on("messageCreate", message => {
+    //Shutdown command
     if (message.content === 'shutdown') {
         client.destroy();
     }
+
 })
 
 client.login(process.env.TOKEN)
@@ -31,12 +32,15 @@ client.login(process.env.TOKEN)
 const pclient = createClient('bxJPwwP46cSPiYtwR72PSPfwdKIxH56nWXKWGpspTcQ1IEbVStVYBQKd');
 const query = 'Nature';
 
+/*
 client.on("messageCreate", message => {
     if (message.content === 'query') {
         message.reply(query);
     }
 })
+*/
 
+//Generating an image with generate
 client.on("messageCreate", async (message) => {
     if (message.content === "generate") {
       try {
