@@ -30,7 +30,7 @@ client.on("messageCreate", message => {
 client.login(process.env.TOKEN)
 
 const pclient = createClient('bxJPwwP46cSPiYtwR72PSPfwdKIxH56nWXKWGpspTcQ1IEbVStVYBQKd');
-const query = 'Nature';
+//const query = 'Nature';
 
 /*
 client.on("messageCreate", message => {
@@ -42,8 +42,9 @@ client.on("messageCreate", message => {
 
 //Generating an image with generate
 client.on("messageCreate", async (message) => {
-    if (message.content === "generate") {
+    if (message.content.startsWith("generate ")) {
       try {
+        const query = message.content.slice(9);
         const photos = await pclient.photos.search({ query, per_page: 1 });
         if (photos.total_results > 0) {
             const photoUrl = photos.photos[0].src.medium;
