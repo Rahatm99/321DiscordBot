@@ -12,6 +12,7 @@
   "dependencies": {
     "@pixelbin/admin": "^3.2.0",
     "@pixelbin/core": "^4.0.0",
+    "cloudinary": "^1.35.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "pexels": "^1.4.0"

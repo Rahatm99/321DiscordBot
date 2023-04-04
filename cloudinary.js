@@ -10,7 +10,7 @@ cloudinary.config({
 // Fetch image from URL and apply transformation
 cloudinary.uploader.upload('https://cdn.discordapp.com/attachments/1073642334803218462/1091502679123034112/pexels-photo-8467823.jpeg', {
   transformation: [
-    { effect: "sepia" } // Example transformation: resize to 200x200 pixels with fill crop
+    { effect: "sepia" }
   ],
   public_id: 'processed_image' // Public ID for the processed image in Cloudinary
 },
