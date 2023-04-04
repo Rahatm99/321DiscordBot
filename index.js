@@ -45,21 +45,22 @@ client.on("messageCreate", async (message) => {
     if (message.content.startsWith("generate ")) {
       try {
         const query = message.content.slice(9);
-        const photos = await pclient.photos.search({ query, per_page: 1 });
-        if (photos.total_results > 0) {
-            const photoUrl = photos.photos[0].src.medium;
+        const { photos, total_results } = await pclient.photos.search({ query, per_page: 50 });
+        if (total_results > 0) {
+            const photoNum = Math.floor(Math.random() * photos.length);
+            const photoUrl = photos[photoNum].src.medium;
             message.reply({ files: [photoUrl] });
         } 
 
         else {
-            message.reply("No photos found for your query.");
+            message.reply("There does not seem to be any responses for your search. Please try again.");
         }
         
         }
 
       catch (error) {
         console.error(error);
-        message.reply("Failed to fetch a photo.");
+        message.reply("Failed to get a photo.");
       }
     }
   });
