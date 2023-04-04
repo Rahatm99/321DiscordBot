@@ -28,7 +28,7 @@ client.on("messageCreate", message => {
 
 client.login(process.env.TOKEN)
 
-const pclient = createClient('bxJPwwP46cSPiYtwR72PSPfwdKIxH56nWXKWGpspTcQ1IEbVStVYBQKd');
+const pclient = createClient(process.env.PEXELS);
 const query = 'Nature';
 
 client.on("messageCreate", message => {
