@@ -46,6 +46,45 @@ client.on("messageCreate", message => {
 })
 */
 
+/* Cloudinary Test */
+const cloudinary = require('cloudinary').v2;
+// Configuration
+cloudinary.config({
+    cloud_name: "dyfeccam2",
+    api_key: "142971231487454",
+    api_secret: "gI0zc8QLyI2zLtg2faXAk86KQvY"
+});
+client.on("messageCreate", async (message) => {
+    if (message.content.startsWith("edit ")) {
+      try {
+        const url = message.content.slice(5);
+        //message.reply(url)
+        // Fetch image from URL and apply transformation
+        cloudinary.uploader.upload(url, {
+            transformation: [
+                { effect: "sepia" }
+            ],
+            public_id: 'processed_image' // Public ID for the processed image in Cloudinary
+        },
+        (error, result) => {
+            if (error) {
+                message.reply("Failed to edit a photo url.");
+            } 
+            else {
+                // Return the new edited/processed image URL
+            message.reply(result.secure_url);
+            }
+        });
+        }
+    //Might need in the future, but currently try-catch unnecessary
+      catch (error) {
+        console.error(error);
+        message.reply("Failed to edit a photo url.");
+      }
+    }
+  });
+/* End of Cloudinary Test */
+
 //Generating an image with generate
 client.on("messageCreate", async (message) => {
     if (message.content.startsWith("generate ")) {
