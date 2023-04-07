@@ -13,6 +13,10 @@ const client = new Client({
 //Confirmation the bot is turned on
 client.on('ready', () => {
     console.log('the bot is ready')
+    const channel = client.channels.cache.get('1073642334803218462');
+    if(channel){
+        channel.send('Bot is now online! Type /help for the command list.')
+    }
 })
 
 client.on("messageCreate", message => {
@@ -22,7 +26,9 @@ client.on("messageCreate", message => {
     }
     //Shutdown command
     if (message.content === 'shutdown') {
-        client.destroy();
+        if (message.member.roles.cache.some(role => role.name === "Moderator")) {
+            client.destroy();
+        }
     }
 
 })
