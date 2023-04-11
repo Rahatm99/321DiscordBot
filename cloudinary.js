@@ -8,7 +8,7 @@ cloudinary.config({
 });
 
 // Fetch image from URL and apply transformation
-cloudinary.uploader.upload('https://cdn.discordapp.com/attachments/1073642334803218462/1091502679123034112/pexels-photo-8467823.jpeg', {
+cloudinary.uploader.upload('https://cdn.discordapp.com/attachments/1073642334803218462/1093647101650542645/pexels-photo-11126979.jpeg', {
   transformation: [
     { effect: "sepia" }
   ],
