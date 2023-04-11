@@ -3,8 +3,8 @@ const cloudinary = require('cloudinary').v2;
 // Configuration
 cloudinary.config({
     cloud_name: "dyfeccam2",
-    api_key: "142971231487454",
-    api_secret: "gI0zc8QLyI2zLtg2faXAk86KQvY"
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
 });
 
 // Fetch image from URL and apply transformation
