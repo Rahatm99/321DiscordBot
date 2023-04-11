@@ -1,9 +1,31 @@
+const { createClient } = require('pexels')
 
-//import { createClient } from 'pexels';
+const pclient = createClient(process.env.PEXELS);
 
-//const { createClient } = require('pexels')
+async function generate(query) {
 
-//const pclient = createClient('bxJPwwP46cSPiYtwR72PSPfwdKIxH56nWXKWGpspTcQ1IEbVStVYBQKd');
-//const query = 'Nature';
+    var output = "";
+    try {
+        const { photos, total_results } = await pclient.photos.search({ query, per_page: 50 });
+        if (total_results > 0) {
+            const photoNum = Math.floor(Math.random() * photos.length);
+            const photoUrl = photos[photoNum].src.medium;
+            //message.reply({ files: [photoUrl] });
+            output = {files: [photoUrl]};
+        } 
 
-//pclient.photos.search({ query, per_page: 1 }).then(photos => {});
+        else {
+            output = "There does not seem to be any responses for your search. Please try again.";
+        }
+        
+    }
+
+    catch (error) {
+        console.error(error);
+        output = "Failed to get a photo.";
+    }
+
+    return output;
+}
+
+ModalSubmitFields.exports = { generate }

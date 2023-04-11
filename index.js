@@ -38,22 +38,16 @@ client.login(process.env.TOKEN)
 const pclient = createClient(process.env.PEXELS);
 const query = 'Nature';
 
-/*
-client.on("messageCreate", message => {
-    if (message.content === 'query') {
-        message.reply(query);
-    }
-})
-*/
-
 /* Cloudinary Test */
 const cloudinary = require('cloudinary').v2;
+
 // Configuration
 cloudinary.config({
     cloud_name: "dyfeccam2",
     api_key: "142971231487454",
     api_secret: "gI0zc8QLyI2zLtg2faXAk86KQvY"
 });
+
 client.on("messageCreate", async (message) => {
     if (message.content.startsWith("edit ")) {
       try {
@@ -82,7 +76,7 @@ client.on("messageCreate", async (message) => {
         message.reply("Failed to edit a photo url.");
       }
     }
-  });
+});
 /* End of Cloudinary Test */
 
 //Generating an image with generate
@@ -109,3 +103,29 @@ client.on("messageCreate", async (message) => {
       }
     }
   });
+
+client.on('interactionCreate', async (interaction) => {
+    if (!interaction.isChatInputCommand()) 
+        return;
+    
+    if (interaction.commandName === 'generate') {
+        const query = interaction.options.get('query')?.value;
+
+        try {
+            const { photos, total_results } = await pclient.photos.search({ query, per_page: 50 });
+            if (total_results > 0) {
+                const photoNum = Math.floor(Math.random() * photos.length);
+                const photoUrl = photos[photoNum].src.medium;
+                interaction.reply({ files: [photoUrl] });
+            } 
+            else {
+                interaction.reply("There does not seem to be any responses for your search. Please try again.");
+            }
+        }
+    
+        catch (error) {
+            console.error(error);
+            interaction.reply("Failed to get a photo.");
+        }
+    }
+});
