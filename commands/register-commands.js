@@ -40,6 +40,30 @@ const commands = [
                         name: 'vignette',
                         value: 'vignette',
                     },
+                    {
+                        name: 'hue',
+                        value: 'hue',
+                    },
+                    {
+                        name: 'improve',
+                        value: 'improve',
+                    },
+                    {
+                        name: 'fill_light',
+                        value: 'fill_light',
+                    },
+                    {
+                        name: 'sharpen',
+                        value: 'sharpen',
+                    },
+                    {
+                        name: 'brightness',
+                        value: 'brightness',
+                    },
+                    {
+                        name: 'pixelate_faces',
+                        value: 'pixelate_faces',
+                    },
                 ],
                 required: true,
             },

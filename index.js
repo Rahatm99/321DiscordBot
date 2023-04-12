@@ -131,7 +131,7 @@ client.on('interactionCreate', async (interaction) => {
     if (interaction.commandName === 'edit-image') {
         const filter = interaction.options.getString('effect-type');
         const imageUrl = interaction.options.getString('image-url');
-        const imageAttachment = interaction.options.get('image-attachment');
+        const imageAttachment = interaction.options.getAttachment('image-attachment');
     
         let url;
         if (imageAttachment) {
