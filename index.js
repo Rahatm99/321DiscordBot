@@ -129,6 +129,46 @@ client.on('interactionCreate', async (interaction) => {
         }
     }
     if (interaction.commandName === 'edit-image') {
+        const filter = interaction.options.getString('effect-type');
+        const imageUrl = interaction.options.getString('image-url');
+        const imageAttachment = interaction.options.getAttachment('image-attachment');
+    
+        let url;
+        if (imageAttachment) {
+          url = imageAttachment.url;
+        } else if (imageUrl) {
+          url = imageUrl;
+        } else {
+          interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: true });
+        }
+    
+        try {
+          const result = await cloudinary.uploader.upload(url, {
+            transformation: [
+              { effect: filter }
+            ],
+            public_id: 'processed_image'
+          });
+          interaction.reply({ content: result.secure_url });
+        } catch (error) {
+          console.error(error);
+          interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
+        }
+      }
+    if(interaction.commandName === 'help'){
+      if (interaction.commandName === 'help') {
+        const helpMessage = `/generate is a command that generates you an image with a specific prompt.
+      Ex: /generate (prompt)
+      
+      /edit-image is a command that edits an image with a specific filter with an image from a URL or an attachment.
+      Ex: /edit-image (filter) (image URL OR attachment)
+      
+      /help is what you are doing.
+      Ex: /help`;
+        interaction.reply(helpMessage);
+      }
+    }
+    if (interaction.commandName === 'edit-image') {
         const filter = interaction.options.get('effect-type').value;
         const imageUrl = interaction.options.getString('image-url');
         const imageAttachment = interaction.options.getAttachment('image-attachment');
