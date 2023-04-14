@@ -80,7 +80,13 @@ const commands = [
                 required: false, 
             },
         ],
+        
     },
+    {
+        name: 'help',
+        description: 'Ask the bot for help',
+    },
+    
 ];
 
 const rest = new REST({ version: '10'}).setToken('MTA3MzY0MDE2MzI4MjAwMTk2MA.Gqi3kB.bMIrtkl1HCIuI2mJB-0JiR4jTpkj8JufUcvy0I');
