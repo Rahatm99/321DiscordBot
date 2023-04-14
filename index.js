@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js')
+const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js')
 const { createClient } = require('pexels')
 require('dotenv/config')
 
@@ -128,4 +128,34 @@ client.on('interactionCreate', async (interaction) => {
             interaction.reply("Failed to get a photo.");
         }
     }
+    if (interaction.commandName === 'edit-image') {
+        const filter = interaction.options.getString('effect-type');
+        const imageUrl = interaction.options.getString('image-url');
+        const imageAttachment = interaction.options.getAttachment('image-attachment');
+    
+        let url;
+        if (imageAttachment) {
+          url = imageAttachment.url;
+        } else if (imageUrl) {
+          url = imageUrl;
+        } else {
+          interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: true });
+        }
+    
+        try {
+          const result = await cloudinary.uploader.upload(url, {
+            transformation: [
+              { effect: filter }
+            ],
+            public_id: 'processed_image'
+          });
+
+          const editedImage = new AttachmentBuilder(result.secure_url)
+          interaction.reply({ content: 'Here is the edited image!', files: [editedImage] });
+
+        } catch (error) {
+          console.error(error);
+          interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
+        }
+      }
 });

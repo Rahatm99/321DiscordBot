@@ -14,7 +14,7 @@ const commands = [
             },
         ],
     },
-    
+
     {
         name: 'edit-image',
         description: 'edits an image with the applied effect',
@@ -25,20 +25,44 @@ const commands = [
                 type: ApplicationCommandOptionType.String,
                 choices: [
                     {
-                        name: 'sepia',
+                        name: 'sepia (1-100, Default: 80)',
                         value: 'sepia',
                     },
                     {
-                        name: 'cartoonify',
+                        name: 'cartoonify (0-100, Default: 50)',
                         value: 'cartoonify',
                     },
                     {
-                        name: 'pixelate',
+                        name: 'pixelate (1-200, Default: N/A)' ,
                         value: 'pixelate',
                     },
                     {
-                        name: 'vignette',
+                        name: 'vignette (0-100, Default: 20)',
                         value: 'vignette',
+                    },
+                    {
+                        name: 'hue (-100-100, Default: 80)',
+                        value: 'hue',
+                    },
+                    {
+                        name: 'improve (Do not input strength for this effect)',
+                        value: 'improve',
+                    },
+                    {
+                        name: 'fill_light (-100-100, Default: 0)',
+                        value: 'fill_light',
+                    },
+                    {
+                        name: 'sharpen (1-2000, Default: 100)',
+                        value: 'sharpen',
+                    },
+                    {
+                        name: 'brightness (-100-100, Default: 80)',
+                        value: 'brightness',
+                    },
+                    {
+                        name: 'pixelate_faces (1-2000, Default: 100)',
+                        value: 'pixelate_faces',
                     },
                 ],
                 required: true,
@@ -55,8 +79,20 @@ const commands = [
                 type: ApplicationCommandOptionType.String,
                 required: false, 
             },
+            {
+                name: 'effect-strength',
+                description: 'Strength of the applied effect (Uses default value if empty)',
+                type: ApplicationCommandOptionType.Integer,
+                required: false, 
+            },
         ],
+        
     },
+    {
+        name: 'help',
+        description: 'Ask the bot for help',
+    },
+    
 ];
 
 const rest = new REST({ version: '10'}).setToken('MTA3MzY0MDE2MzI4MjAwMTk2MA.Gqi3kB.bMIrtkl1HCIuI2mJB-0JiR4jTpkj8JufUcvy0I');
