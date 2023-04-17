@@ -89,6 +89,37 @@ const commands = [
         
     },
     {
+        name: 'crop',
+        description: 'Crops a desired area with a specific x and y value',
+        options: [
+            {
+                name: 'image-attachment',
+                description: 'upload an image to edit',
+                type: ApplicationCommandOptionType.Attachment,
+                required: false, 
+            },
+            {
+                name: 'image-url',
+                description: 'provide the URL of an image to edit',
+                type: ApplicationCommandOptionType.String,
+                required: false, 
+            },
+            {
+                name: 'hvalue',
+                description: 'The height of the desired cropped image',
+                type: ApplicationCommandOptionType.Integer,
+                required: false, 
+            },
+            {
+                name: 'wvalue',
+                description: 'The width of the desired cropped image',
+                type: ApplicationCommandOptionType.Integer,
+                required: false, 
+            },
+        ],
+        required: true
+    },
+    {
         name: 'help',
         description: 'Ask the bot for help',
     },
