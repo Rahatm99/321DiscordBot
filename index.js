@@ -121,7 +121,7 @@ client.on('interactionCreate', async (interaction) => {
               ],
              public_id: 'processed_image'
             });
-            interaction.reply({ content: result.secure_url });
+            interaction.reply({ files: [{ attachment: result.url }] });
           }
           //edits image with default filter strength
           else{
@@ -131,7 +131,8 @@ client.on('interactionCreate', async (interaction) => {
               ],
               public_id: 'processed_image'
             });
-            interaction.reply({ content: result.secure_url });
+            interaction.reply({ files: [{ attachment: result.url }] });
+
           }
         } catch (error) {
           console.error(error);
@@ -175,7 +176,7 @@ client.on('interactionCreate', async (interaction) => {
           ],
           public_id: 'processed_image'
         });
-        interaction.reply({ content: result.secure_url });
+        interaction.reply({ files: [{ attachment: result.url }] });
       } catch (error) {
         console.error(error);
         interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
