@@ -83,6 +83,8 @@ const commands = [
                 name: 'effect-strength',
                 description: 'Strength of the applied effect (Uses default value if empty)',
                 type: ApplicationCommandOptionType.Integer,
+                minValue: -100,
+                maxValue: 2000,
                 required: false, 
             },
         ],
