@@ -45,11 +45,15 @@ const pclient = createClient(process.env.PEXELS);
 /* Cloudinary Test */
 const cloudinary = require('cloudinary').v2;
 
+/* API Information */
+let key = process.env.CLOUDINARY_KEY.toString();
+let secret = process.env.CLOUDINARY_SECRET.toString();
+
 // Configuration
 cloudinary.config({
     cloud_name: "dyfeccam2",
-    api_key: "142971231487454",
-    api_secret: "gI0zc8QLyI2zLtg2faXAk86KQvY"
+    api_key: key,
+    api_secret: secret
 });
 
 /*
