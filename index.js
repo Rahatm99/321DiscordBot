@@ -153,7 +153,13 @@ client.on('interactionCreate', async (interaction) => {
         interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: true });
         return;
       }
-
+      let grav;
+      if(interaction.options.get('type')){
+        grav = interaction.options.get('type').value;
+      }
+      else{
+        grav = "auto";
+      }
       //Getting an image from url or attachment
       let url;
       if (imageAttachment) {
@@ -168,10 +174,10 @@ client.on('interactionCreate', async (interaction) => {
         const result = await cloudinary.uploader.upload(url, {
           transformation: [
             { 
-              gravity: "auto",
+              gravity: grav,
               height : hVal,
               width : wVal,
-              crop: "fill"
+              crop: "crop"
             }
           ],
           public_id: 'processed_image'
@@ -192,7 +198,7 @@ client.on('interactionCreate', async (interaction) => {
       Ex: /edit-image (filter) (image URL OR attachment) (effect strength if any)
 
       /crop is a command that crops an image with a specific size given
-      Ex: /crop (image URL OR attatchment) (height) (width)
+      Ex: /crop (image URL OR attatchment) (type of crop) (height) (width)
       
       /help is what you are doing.
       Ex: /help`;

@@ -107,6 +107,39 @@ const commands = [
                 required: false, 
             },
             {
+                name: 'type',
+                description: 'Type of crop (Auto is default)',
+                type: ApplicationCommandOptionType.String,
+                choices: [
+                    {
+                        name: 'Auto',
+                        value: 'auto',
+                    },
+                    {
+                        name: 'North West',
+                        value: 'north_west',
+                    },
+                    {
+                        name: 'North East',
+                        value: 'north_east',
+                    },
+                    {
+                        name: 'South West',
+                        value: 'south_west',
+                    },
+                    {
+                        name: 'South East',
+                        value: 'south_east',
+                    },
+                    {
+                        name: 'Face',
+                        value: 'face',
+                    },
+
+                ],
+                required: false, 
+            },
+            {
                 name: 'hvalue',
                 description: 'The height of the desired cropped image',
                 type: ApplicationCommandOptionType.Integer,
