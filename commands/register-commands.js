@@ -1,5 +1,5 @@
-require('dotenv').config({path:'./.env'})
-const { REST, Routes, ApplicationCommandOptionType } = require('discord.js')
+require('dotenv').config({path:'../.env'})
+const { REST, Routes, ApplicationCommandOptionType } = require('discord.js');
 
 const commands = [
     {
@@ -116,6 +116,26 @@ const commands = [
                         value: 'auto',
                     },
                     {
+                        name: 'Center',
+                        value: 'center',
+                    },
+                    {
+                        name: 'North',
+                        value: 'north',
+                    },
+                    {
+                        name: 'South',
+                        value: 'south',
+                    },
+                    {
+                        name: 'East',
+                        value: 'east',
+                    },
+                    {
+                        name: 'West',
+                        value: 'west',
+                    },
+                    {
                         name: 'North West',
                         value: 'north_west',
                     },
@@ -141,13 +161,44 @@ const commands = [
             },
             {
                 name: 'hvalue',
-                description: 'The height of the desired cropped image',
+                description: 'The height of the desired cropped image (MAX is 2000)',
                 type: ApplicationCommandOptionType.Integer,
                 required: false, 
             },
             {
                 name: 'wvalue',
-                description: 'The width of the desired cropped image',
+                description: 'The width of the desired cropped image (MAX is 2000)',
+                type: ApplicationCommandOptionType.Integer,
+                required: false, 
+            },
+        ],
+        required: true
+    },
+    {
+        name: 'resize',
+        description: 'Resizes an image with a specific x and y value',
+        options: [
+            {
+                name: 'image-attachment',
+                description: 'upload an image to edit',
+                type: ApplicationCommandOptionType.Attachment,
+                required: false, 
+            },
+            {
+                name: 'image-url',
+                description: 'provide the URL of an image to edit',
+                type: ApplicationCommandOptionType.String,
+                required: false, 
+            },
+            {
+                name: 'hvalue',
+                description: 'The height of the desired image size (MAX is 2000)',
+                type: ApplicationCommandOptionType.Integer,
+                required: false, 
+            },
+            {
+                name: 'wvalue',
+                description: 'The width of the desired image size (MAX is 2000)',
                 type: ApplicationCommandOptionType.Integer,
                 required: false, 
             },
@@ -156,11 +207,11 @@ const commands = [
     },
     {
         name: 'help',
-        description: 'Ask the bot for help',
+        description: 'Ask the bot for help!',
+        required: true
     },
     
 ];
-
 const rest = new REST({ version: '10'}).setToken(process.env.TOKEN);
 
 (async () => {
@@ -168,7 +219,7 @@ const rest = new REST({ version: '10'}).setToken(process.env.TOKEN);
         console.log('Registering Commands');
 
         await rest.put(
-            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.SERVER_ID),
+            Routes.applicationGuildCommands('1073640163282001960', '1067876157753671760'),
             {
                 body: commands
             }

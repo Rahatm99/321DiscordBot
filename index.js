@@ -150,8 +150,9 @@ client.on('interactionCreate', async (interaction) => {
       const imageAttachment = interaction.options.getAttachment('image-attachment');
       const hVal = interaction.options.get('hvalue')?.value;
       const wVal = interaction.options.get('wvalue')?.value;
-      if(hVal < 1 || wVal < 1){
-        interaction.reply('Error, the h and/or w values are less than 1. Please try again');
+      if(hVal < 1 || wVal < 1 || hVal > 2000 || wVal > 2000){
+        interaction.reply('Error, the h and/or w values are less than 1/bigger than 2000. Please try again');
+        return;
       }
       if (imageUrl && imageAttachment) {
         interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: true });
@@ -192,7 +193,46 @@ client.on('interactionCreate', async (interaction) => {
         interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
       }
     }
+    if(interaction.commandName === 'resize'){
+      const imageUrl = interaction.options.getString('image-url');
+      const imageAttachment = interaction.options.getAttachment('image-attachment');
+      const hVal = interaction.options.get('hvalue')?.value;
+      const wVal = interaction.options.get('wvalue')?.value;
+      if(hVal < 1 || wVal < 1 || hVal > 2000 || wVal > 2000){
+        interaction.reply('Error, the h and/or w values are less than 1/bigger than 2000. Please try again');
+        return;
+      }
+      if (imageUrl && imageAttachment) {
+        interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: true });
+        return;
+      }
+      //Getting an image from url or attachment
+      let url;
+      if (imageAttachment) {
+        url = imageAttachment.url;
+      } else if (imageUrl) {
+        url = imageUrl;
+      } else {
+        interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: true });
+      }
 
+      try {
+        const result = await cloudinary.uploader.upload(url, {
+          transformation: [
+            { 
+              height : hVal,
+              width : wVal,
+              crop: "scale"
+            }
+          ],
+          public_id: 'processed_image'
+        });
+        interaction.reply({ files: [{ attachment: result.url }] });
+      } catch (error) {
+        console.error(error);
+        interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
+      }
+    }
     //help command that gives imformation about the commands
     if(interaction.commandName === 'help'){
         const helpMessage = `/generate is a command that generates you an image with a specific prompt.
@@ -203,6 +243,9 @@ client.on('interactionCreate', async (interaction) => {
 
       /crop is a command that crops an image with a specific size given
       Ex: /crop (image URL OR attatchment) (type of crop) (height) (width)
+
+      /resize is a command that resizes an image with a specific size given
+      Ex: /resize (image URL OR attatchment) (height) (width)
       
       /help is what you are doing.
       Ex: /help`;
