@@ -161,14 +161,14 @@ const commands = [
     
 ];
 
-const rest = new REST({ version: '10'}).setToken('MTA3MzY0MDE2MzI4MjAwMTk2MA.Gqi3kB.bMIrtkl1HCIuI2mJB-0JiR4jTpkj8JufUcvy0I');
+const rest = new REST({ version: '10'}).setToken(process.env.TOKEN);
 
 (async () => {
     try {
         console.log('Registering Commands');
 
         await rest.put(
-            Routes.applicationGuildCommands('1073640163282001960', '1067876157753671760'),
+            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.SERVER_ID),
             {
                 body: commands
             }
