@@ -99,6 +99,11 @@ client.on('interactionCreate', async (interaction) => {
             return;
         }
 
+        if(filter === "sharpen" && effectStrength > 1500){
+          interaction.reply({ content: 'Not a valid input. Please input a number less than 1500', ephemeral: true });
+          return;
+        }
+
         //Getting an image from url or attachment
         let url;
         if (imageAttachment) {
@@ -125,7 +130,7 @@ client.on('interactionCreate', async (interaction) => {
               ],
              public_id: 'processed_image'
             });
-            interaction.reply({ files: [{ attachment: result.url }] });
+            await interaction.reply({ files: [{ attachment: result.url }] });
           }
           //edits image with default filter strength
           else{
@@ -135,7 +140,7 @@ client.on('interactionCreate', async (interaction) => {
               ],
               public_id: 'processed_image'
             });
-            interaction.reply({ files: [{ attachment: result.url }] });
+            await interaction.reply({ files: [{ attachment: result.url }] });
 
           }
         } catch (error) {
@@ -150,14 +155,18 @@ client.on('interactionCreate', async (interaction) => {
       const imageAttachment = interaction.options.getAttachment('image-attachment');
       const hVal = interaction.options.get('hvalue')?.value;
       const wVal = interaction.options.get('wvalue')?.value;
-      if(hVal < 1 || wVal < 1 || hVal > 2000 || wVal > 2000){
-        interaction.reply('Error, the h and/or w values are less than 1/bigger than 2000. Please try again');
+      if(hVal < 1 || wVal < 1 || hVal > 1000 || wVal > 1000){
+        interaction.reply({content: 'Error, the h and/or w values are less than 1/bigger than 1000. Please try again', 
+                            ephemeral: true});
         return;
       }
       if (imageUrl && imageAttachment) {
         interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: true });
         return;
       }
+
+
+
       let grav;
       if(interaction.options.get('type')){
         grav = interaction.options.get('type').value;
@@ -198,8 +207,9 @@ client.on('interactionCreate', async (interaction) => {
       const imageAttachment = interaction.options.getAttachment('image-attachment');
       const hVal = interaction.options.get('hvalue')?.value;
       const wVal = interaction.options.get('wvalue')?.value;
-      if(hVal < 1 || wVal < 1 || hVal > 2000 || wVal > 2000){
-        interaction.reply('Error, the h and/or w values are less than 1/bigger than 2000. Please try again');
+      if(hVal < 1 || wVal < 1 || hVal > 1000 || wVal > 1000){
+        interaction.reply({content: 'Error, the h and/or w values are less than 1/bigger than 1000. Please try again', 
+                            ephemeral: true});
         return;
       }
       if (imageUrl && imageAttachment) {

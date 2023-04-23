@@ -53,7 +53,7 @@ const commands = [
                         value: 'fill_light',
                     },
                     {
-                        name: 'sharpen (1-2000, Default: 100)',
+                        name: 'sharpen (1-1500, Default: 100)',
                         value: 'sharpen',
                     },
                     {
