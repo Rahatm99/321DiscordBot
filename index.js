@@ -95,12 +95,12 @@ client.on('interactionCreate', async (interaction) => {
 
         //Error if both URL and attachments is given
         if (imageUrl && imageAttachment) {
-            interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: true });
+            interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: false });
             return;
         }
 
         if(filter === "sharpen" && effectStrength > 1500){
-          interaction.reply({ content: 'Not a valid input. Please input a number less than 1500', ephemeral: true });
+          interaction.reply({ content: 'Not a valid input. Please input a number less than 1500', ephemeral: false });
           return;
         }
 
@@ -111,7 +111,7 @@ client.on('interactionCreate', async (interaction) => {
         } else if (imageUrl) {
           url = imageUrl;
         } else {
-          interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: true });
+          interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: false });
         }
 
         //Deciding filter Strength
@@ -145,7 +145,7 @@ client.on('interactionCreate', async (interaction) => {
           }
         } catch (error) {
           console.error(error);
-          interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
+          interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: false });
         }
       }
 
@@ -157,15 +157,13 @@ client.on('interactionCreate', async (interaction) => {
       const wVal = interaction.options.get('wvalue')?.value;
       if(hVal < 1 || wVal < 1 || hVal > 1000 || wVal > 1000){
         interaction.reply({content: 'Error, the h and/or w values are less than 1/bigger than 1000. Please try again', 
-                            ephemeral: true});
+                            ephemeral: false});
         return;
       }
       if (imageUrl && imageAttachment) {
-        interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: true });
+        interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: false });
         return;
       }
-
-
 
       let grav;
       if(interaction.options.get('type')){
@@ -181,7 +179,7 @@ client.on('interactionCreate', async (interaction) => {
       } else if (imageUrl) {
         url = imageUrl;
       } else {
-        interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: true });
+        interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: false });
       }
 
       try {
@@ -199,7 +197,7 @@ client.on('interactionCreate', async (interaction) => {
         interaction.reply({ files: [{ attachment: result.url }] });
       } catch (error) {
         console.error(error);
-        interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
+        interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: false });
       }
     }
     if(interaction.commandName === 'resize'){
@@ -209,11 +207,11 @@ client.on('interactionCreate', async (interaction) => {
       const wVal = interaction.options.get('wvalue')?.value;
       if(hVal < 1 || wVal < 1 || hVal > 1000 || wVal > 1000){
         interaction.reply({content: 'Error, the h and/or w values are less than 1/bigger than 1000. Please try again', 
-                            ephemeral: true});
+                            ephemeral: false});
         return;
       }
       if (imageUrl && imageAttachment) {
-        interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: true });
+        interaction.reply({ content: 'ERROR: Provide an image attachment OR URL, not both.', ephemeral: false });
         return;
       }
       //Getting an image from url or attachment
@@ -223,7 +221,7 @@ client.on('interactionCreate', async (interaction) => {
       } else if (imageUrl) {
         url = imageUrl;
       } else {
-        interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: true });
+        interaction.reply({ content: 'You must provide an image attachment or URL.', ephemeral: false });
       }
 
       try {
@@ -240,7 +238,7 @@ client.on('interactionCreate', async (interaction) => {
         interaction.reply({ files: [{ attachment: result.url }] });
       } catch (error) {
         console.error(error);
-        interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: true });
+        interaction.reply({ content: 'Failed to edit a photo URL.', ephemeral: false });
       }
     }
     //help command that gives imformation about the commands

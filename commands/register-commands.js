@@ -161,13 +161,13 @@ const commands = [
             },
             {
                 name: 'hvalue',
-                description: 'The height of the desired cropped image (MAX is 2000)',
+                description: 'The height of the desired cropped image (MAX is 1000)',
                 type: ApplicationCommandOptionType.Integer,
                 required: false, 
             },
             {
                 name: 'wvalue',
-                description: 'The width of the desired cropped image (MAX is 2000)',
+                description: 'The width of the desired cropped image (MAX is 1000)',
                 type: ApplicationCommandOptionType.Integer,
                 required: false, 
             },
@@ -192,13 +192,13 @@ const commands = [
             },
             {
                 name: 'hvalue',
-                description: 'The height of the desired image size (MAX is 2000)',
+                description: 'The height of the desired image size (MAX is 1000)',
                 type: ApplicationCommandOptionType.Integer,
                 required: false, 
             },
             {
                 name: 'wvalue',
-                description: 'The width of the desired image size (MAX is 2000)',
+                description: 'The width of the desired image size (MAX is 1000)',
                 type: ApplicationCommandOptionType.Integer,
                 required: false, 
             },
